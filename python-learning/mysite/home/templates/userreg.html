@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Registration Form</h1>
+    <form action="../insertuser" method="post" name="register" style="align-items: center;">
+        {% csrf_token %}
+        <pre>
+            Full Name : <input type="text" name="name" value="" width="200"  > <br>
+            Employee ID : <input type="text" name="empid" value="" width="200"> <br>
+            Email Address : <input type="text" name="email" value="" width="200"> <br>
+            Date Of Joining : <input type="text" name="date" value="" width="200"> <br>
+            Password : <input type="text" name="Password" value="" width="200"> <br>
+            Confirm password : <input type="text" name="cpassword" value="" width="200"> <br>
+            <input type="submit" name="reg" value="CLick HERe to submit" width="300" height="100">
+        </pre>
+    </form>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dhnchak pooja</title>
+</head>
+<style>table {
+	border-collapse: collapse;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+table td {
+	padding: 15px;
+}
+table thead td {
+	background-color: #54585d;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 13px;
+	border: 1px solid #54585d;
+}
+table tbody td {
+	color: #636363;
+	border: 1px solid #dddfe1;
+}
+table tbody tr {
+	background-color: #f9fafb;
+}
+table tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}</style>
+<body>
+    <h1>
+    <table>
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>Full Name</td>
+                <td>Employee ID</td>
+                <td>Email Address</td>
+                <td>Date Of Joining</td>
+                <td>Password</td>
+                <td>Confirm password</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for people in peoples %}
+            <tr>
+                <td>{{ people.id  }}</td>
+                <td>{{ people.name }}</td>
+                <td>{{ people.empid }}</td>
+                <td>{{ people.email }}</td>
+                <td>{{ people.date }}</td>
+                <td>{{ people.Password }}</td>
+                <td>{{ people.Password }}</td>
+                <td> <a href="/updateprofile/{{ people.id }}"> Update</a> </td>
+                <td> <a href="/deleteprofile/{{ people.id }}"> Delete</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <a href="../userreg"> back to registration form</a>
+    
+</h1>
+
+</body>
+</html>
