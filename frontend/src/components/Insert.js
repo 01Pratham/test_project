@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-function Insert(props) {
-  const handleSubmit = (e) => {
+function Insert() {
+  const [user, setUser] = useState([]);
+  const { id } = useParams();
+
+  const handleSubmit = (e, action) => {
     e.preventDefault();
     const form = document.getElementById("quickForm");
     const formData = new FormData(form);
-    let serializedFormData = {};
+    let serializedFormData = {
+      action: action,
+    };
+    if (id) {
+      serializedFormData["id"] = id;
+    }
 
     for (let [key, value] of formData.entries()) {
       serializedFormData[key] = value;
     }
-
-    // console.log(JSON.stringify(serializedFormData))
-
     axios({
       url: "http://localhost:8000/insert/",
       method: "post",
@@ -24,6 +30,23 @@ function Insert(props) {
       }
     });
   };
+
+  useEffect(() => {
+    if (id) {
+      try {
+        axios
+          .get(`http://localhost:8000/user/${id}`)
+          .then((res) => {
+            const data = res.data.data;
+            setUser(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching data: ", error);
+          });
+      } catch (e) {}
+    }
+  }, []);
+
   return (
     <>
       <div>
@@ -56,6 +79,10 @@ function Insert(props) {
                                 name="name"
                                 className="form-control"
                                 id="Name"
+                                value={user.name ?? ""}
+                                onChange={(e) =>
+                                  setUser({ ...user, name: e.target.value })
+                                }
                                 placeholder="Enter full name"
                               />
                             </div>
@@ -70,6 +97,10 @@ function Insert(props) {
                                 name="empid"
                                 className="form-control"
                                 id="empId"
+                                value={user.empid ?? ""}
+                                onChange={(e) =>
+                                  setUser({ ...user, empid: e.target.value })
+                                }
                                 placeholder="Enter Employee ID"
                               />
                             </div>
@@ -87,6 +118,10 @@ function Insert(props) {
                                 name="email"
                                 className="form-control"
                                 id="email"
+                                value={user.email ?? ""}
+                                onChange={(e) =>
+                                  setUser({ ...user, email: e.target.value })
+                                }
                                 placeholder="Enter Email Address"
                               />
                             </div>
@@ -101,6 +136,10 @@ function Insert(props) {
                                 name="date"
                                 className="form-control"
                                 id="doj"
+                                value={user.date ?? ""}
+                                onChange={(e) =>
+                                  setUser({ ...user, date: e.target.value })
+                                }
                                 placeholder="Enter date Of Joing"
                               />
                             </div>
@@ -118,6 +157,10 @@ function Insert(props) {
                                 name="password"
                                 className="form-control"
                                 id="password"
+                                value={user.Password ?? ""}
+                                onChange={(e) =>
+                                  setUser({ ...user, Password: e.target.value })
+                                }
                                 placeholder="Enter password"
                               />
                             </div>
@@ -132,6 +175,13 @@ function Insert(props) {
                                 name="cpassword"
                                 className="form-control"
                                 id="cpassword"
+                                value={user.cpassword ?? ""}
+                                onChange={(e) =>
+                                  setUser({
+                                    ...user,
+                                    cpassword: e.target.value,
+                                  })
+                                }
                                 placeholder="Confirm Password"
                               />
                             </div>
@@ -144,7 +194,7 @@ function Insert(props) {
                           id="submit"
                           className="btn btn-primary"
                           onClick={(event) => {
-                            handleSubmit(event);
+                            handleSubmit(event, id ? "update" : "insert");
                           }}
                         >
                           Submit

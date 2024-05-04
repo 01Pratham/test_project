@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const Navigate = useNavigate();
+  if (!localStorage.getItem("isLoggedIn")) {
+    Navigate("/");
+  }
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
@@ -15,13 +20,16 @@ function Home() {
             (key) => res.data.data[key]
           );
           setUserData(dataArray);
-          console.log(res.data.data);
         }
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
   }, []);
+
+  const handelUserEdit = (id) => {
+    Navigate(`/insert/${id}`);
+  };
 
   const handleUserDelete = (id) => {
     axios
@@ -89,7 +97,7 @@ function Home() {
                             </span>{" "} */}
                             <button
                               className="badge bg-primary p-2"
-                              
+                              onClick={() => handelUserEdit(user.id)}
                             >
                               <i>
                                 <FontAwesomeIcon icon={faEdit} />

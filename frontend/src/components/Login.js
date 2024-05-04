@@ -40,6 +40,7 @@ const Login = () => {
           setLoggedIn(true);
           // Redirect to home page
           localStorage.setItem("Name" , res.data.Name??"User");
+          localStorage.setItem("isLoggedIn" , true);
           Navigate("/Home");
         }
       });

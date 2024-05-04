@@ -19,9 +19,22 @@ class insertProfile(View):
             vdate = data['date']
             vPassword = data['password']
             vcpassword = data['cpassword']
-            us = User(name=vname, empid=vempid, email=vemail, date=vdate,Password=vPassword,cpassword=vcpassword)
-            us.save()
-            data = {"status" : 200, "message" : "User Inserted Successfully"}
+            if data["action"] ==     "insert":
+                us = User(name=vname, empid=vempid, email=vemail, date=vdate,Password=vPassword,cpassword=vcpassword)
+                us.save()
+                msg = "Inserted"
+            elif data["action"] ==   "update":
+                us = User.objects.get(id=data["id"])
+                us.name = vname
+                us.empid = vempid
+                us.email = vemail
+                us.date = vdate
+                us.Password = vPassword
+                us.cpassword = vcpassword
+                us.save()
+                msg = "Updated"
+                
+            data = {"status" : 200, "message" : "User "+msg+" Successfully"}
         except json.JSONDecodeError:
             data = {"status" : 400, "message" : "Error while Inserting User"}
         return JsonResponse(data)
