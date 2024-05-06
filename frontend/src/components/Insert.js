@@ -18,7 +18,12 @@ function Insert() {
     }
 
     for (let [key, value] of formData.entries()) {
-      serializedFormData[key] = value;
+      if(value != ""){
+        serializedFormData[key] = value;
+      }else{
+        alert("Please fill all the required info");
+        return;
+      }
     }
     axios({
       url: "http://localhost:8000/insert/",
