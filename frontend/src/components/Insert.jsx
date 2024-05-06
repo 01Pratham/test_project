@@ -18,7 +18,12 @@ function Insert() {
     }
 
     for (let [key, value] of formData.entries()) {
-      serializedFormData[key] = value;
+      if (value != "") {
+        serializedFormData[key] = value;
+      } else {
+        alert("Please fill all the required info");
+        return;
+      }
     }
     axios({
       url: "http://localhost:8000/insert/",
@@ -46,6 +51,8 @@ function Insert() {
       } catch (e) {}
     }
   }, []);
+
+  const validateInput = () => {};
 
   return (
     <>
@@ -84,8 +91,21 @@ function Insert() {
                                 onChange={(e) =>
                                   setUser({ ...user, name: e.target.value })
                                 }
+                                onBlur={(e) => {
+                                  const err = document.getElementById("nameErr");
+                                  if (e.target.value.match(/[1-9]/g)) {
+                                    err.innerHTML =
+                                      "Please enter Alphabates only";
+                                  } else {
+                                    err.innerHTML = "";
+                                  }
+                                }}
                                 placeholder="Enter full name"
                               />
+                              <div
+                                className="error text-danger"
+                                id="nameErr"
+                              ></div>
                             </div>
                           </div>
                           <div className="col-md-6">
