@@ -80,6 +80,7 @@ function Insert() {
                                 className="form-control"
                                 id="Name"
                                 value={user.name ?? ""}
+                                required
                                 onChange={(e) =>
                                   setUser({ ...user, name: e.target.value })
                                 }
@@ -98,6 +99,7 @@ function Insert() {
                                 className="form-control"
                                 id="empId"
                                 value={user.empid ?? ""}
+                                required
                                 onChange={(e) =>
                                   setUser({ ...user, empid: e.target.value })
                                 }
@@ -119,6 +121,7 @@ function Insert() {
                                 className="form-control"
                                 id="email"
                                 value={user.email ?? ""}
+                                required
                                 onChange={(e) =>
                                   setUser({ ...user, email: e.target.value })
                                 }
@@ -137,6 +140,7 @@ function Insert() {
                                 className="form-control"
                                 id="doj"
                                 value={user.date ?? ""}
+                                required
                                 onChange={(e) =>
                                   setUser({ ...user, date: e.target.value })
                                 }
@@ -158,6 +162,7 @@ function Insert() {
                                 className="form-control"
                                 id="password"
                                 value={user.Password ?? ""}
+                                required
                                 onChange={(e) =>
                                   setUser({ ...user, Password: e.target.value })
                                 }
@@ -176,6 +181,7 @@ function Insert() {
                                 className="form-control"
                                 id="cpassword"
                                 value={user.cpassword ?? ""}
+                                required
                                 onChange={(e) =>
                                   setUser({
                                     ...user,
