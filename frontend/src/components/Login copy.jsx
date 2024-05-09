@@ -34,12 +34,15 @@ const Login = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       axios({
-        url: "http://localhost:8000/login/",
+        url: `${process.env.REACT_APP_URL}:${process.env.REACT_APP_BACKEND_PORT}/login/`,
         method: "post",
         data: JSON.stringify({
           email: formData.email,
           password: formData.password,
         }),
+        headers:{
+          Authorization : process.env.REACT_APP_API_AUTHORIZATION,
+        }
       }).then((res) => {
         if (res.data.is_valid) {
           setLoggedIn(true);

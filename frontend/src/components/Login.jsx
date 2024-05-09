@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
+
 const Login = () => {
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
 
   const [error, setErrors] = useState({});
   const [valid, setValid] = useState(true);
@@ -29,20 +31,29 @@ const Login = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       axios({
-        url: "http://localhost:8000/login/",
+        url: `${process.env.REACT_APP_URL}:${process.env.REACT_APP_BACKEND_PORT}/login/`,
         method: "post",
         data: JSON.stringify({
           email: formData.email,
           password: formData.password,
         }),
-      }).then((res) => {
-        if (res.data.is_valid) {
-          setLoggedIn(true);
-          // Redirect to home page
-          localStorage.setItem("Name" , res.data.Name??"User");
-          localStorage.setItem("isLoggedIn" , true);
-          Navigate("/Home");
+        headers:{
+          Authorization : process.env.REACT_APP_API_AUTHORIZATION
         }
+      }).then((res) => {
+        try{
+          if (res.data.is_valid) {
+            setLoggedIn(true);
+            // Redirect to home page
+            localStorage.setItem("Name", res.data.Name ?? "User");
+            localStorage.setItem("isLoggedIn", true);
+            Navigate("/Home");
+          }
+        }catch(e){
+          alert(res.data.error)
+        }
+      }).catch((error)=>{
+        alert("Error")
       });
     }
   };

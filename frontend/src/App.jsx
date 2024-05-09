@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Insert from "./components/Insert";
 
 function App() {
+  // console.log(process.env)
+
   return (
     <div className="App">
       <Router>

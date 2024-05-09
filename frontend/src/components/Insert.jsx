@@ -26,9 +26,12 @@ function Insert() {
       }
     }
     axios({
-      url: "http://localhost:8000/insert/",
+      url: `${process.env.REACT_APP_URL}:${process.env.REACT_APP_BACKEND_PORT}/insert/`,
       method: "post",
       data: JSON.stringify(serializedFormData),
+      headers: {
+        Authorization: process.env.REACT_APP_API_AUTHORIZATION,
+      },
     }).then((res) => {
       if (res.data.message) {
         alert(res.data.message);
@@ -40,7 +43,11 @@ function Insert() {
     if (id) {
       try {
         axios
-          .get(`http://localhost:8000/user/${id}`)
+          .get(`${process.env.REACT_APP_URL}:${process.env.REACT_APP_BACKEND_PORT}/user/${id}`, {
+            headers: {
+              Authorization: process.env.REACT_APP_API_AUTHORIZATION,
+            },
+          })
           .then((res) => {
             const data = res.data.data;
             setUser(data);
@@ -92,7 +99,8 @@ function Insert() {
                                   setUser({ ...user, name: e.target.value })
                                 }
                                 onBlur={(e) => {
-                                  const err = document.getElementById("nameErr");
+                                  const err =
+                                    document.getElementById("nameErr");
                                   if (e.target.value.match(/[1-9]/g)) {
                                     err.innerHTML =
                                       "Please enter Alphabates only";

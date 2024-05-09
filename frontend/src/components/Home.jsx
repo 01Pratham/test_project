@@ -13,7 +13,11 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/user/")
+      .get(`${process.env.REACT_APP_URL}:${process.env.REACT_APP_BACKEND_PORT}/user/`, {
+        headers: {
+          Authorization: process.env.REACT_APP_API_AUTHORIZATION,
+        },
+      })
       .then((res) => {
         if (res.data.data && typeof res.data.data === "object") {
           const dataArray = Object.keys(res.data.data).map(
@@ -33,7 +37,11 @@ function Home() {
 
   const handleUserDelete = (id) => {
     axios
-      .delete(`http://localhost:8000/delete/${id}`)
+      .delete(`${process.env.REACT_APP_URL}:${process.env.REACT_APP_BACKEND_PORT}/delete/${id}`, {
+        headers: {
+          Authorization: process.env.REACT_APP_API_AUTHORIZATION,
+        },
+      })
       .then((res) => {
         if (res.data.data) {
           alert(res.data.data);
@@ -90,11 +98,6 @@ function Home() {
                           <td>{user.email}</td>
                           <td>{user.date}</td>
                           <td>
-                            {/* <span className="badge bg-primary p-2">
-                              <i>
-                                <FontAwesomeIcon icon={faEdit} />
-                              </i>
-                            </span>{" "} */}
                             <button
                               className="badge bg-primary p-2"
                               onClick={() => handelUserEdit(user.id)}
@@ -131,7 +134,6 @@ function Home() {
 
               <div className="row">
                 <div className="col-lg-3 col-6">
-                  {/* small box */}
                   <div className="small-box bg-info">
                     <div className="inner">
                       <h3>150</h3>
@@ -145,9 +147,7 @@ function Home() {
                     </a>
                   </div>
                 </div>
-                {/* ./col */}
                 <div className="col-lg-3 col-6">
-                  {/* small box */}
                   <div className="small-box bg-success">
                     <div className="inner">
                       <h3>
@@ -163,9 +163,7 @@ function Home() {
                     </a>
                   </div>
                 </div>
-                {/* ./col */}
                 <div className="col-lg-3 col-6">
-                  {/* small box */}
                   <div className="small-box bg-warning">
                     <div className="inner">
                       <h3>44</h3>
@@ -179,9 +177,7 @@ function Home() {
                     </a>
                   </div>
                 </div>
-                {/* ./col */}
                 <div className="col-lg-3 col-6">
-                  {/* small box */}
                   <div className="small-box bg-danger">
                     <div className="inner">
                       <h3>65</h3>
@@ -195,7 +191,6 @@ function Home() {
                     </a>
                   </div>
                 </div>
-                {/* ./col */}
               </div>
             </div>
           </section>

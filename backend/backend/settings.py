@@ -11,10 +11,16 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+PARENT_DIR = os.path.dirname(BASE_DIR)
+
+ENV_PATH = os.path.join(PARENT_DIR , ".env")
+load_dotenv(ENV_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -28,6 +34,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
 
 # Application definition
 
@@ -81,12 +89,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',       # Replace 'your_database_name' with the name of your database
-        'USER': 'root',      # Replace 'your_mysql_username' with your MySQL username
-        'PASSWORD': '',  # Replace 'your_mysql_password' with your MySQL password
-        'HOST': 'localhost',                # Or your MySQL host
-        'PORT': '3306',                     # Or your MySQL port
+        'ENGINE': 'django.db.backends.' + os.getenv("DB_CONNECTION"),
+        'NAME': os.getenv("DB_DATABASE"),        # Replace 'your_database_name' with the name of your database
+        'USER': os.getenv("DB_USERNAME"),        # Replace 'your_mysql_username' with your MySQL username
+        'PASSWORD': os.getenv("DB_PASSWORD"),    # Replace 'your_mysql_password' with your MySQL password
+        'HOST': os.getenv("DB_HOST"),            # Or your MySQL host
+        'PORT': os.getenv("DB_PORT"),            # Or your MySQL port
     }
 }
 
