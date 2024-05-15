@@ -83,7 +83,7 @@ function Home() {
                   >
                     <thead>
                       <tr>
-                        <th>Full Name</th>
+                        <th>Full Nameee</th>
                         <th>Employee ID</th>
                         <th>Email Address</th>
                         <th>Date Of Joining</th>
