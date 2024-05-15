@@ -15,6 +15,7 @@ class LoginView(View):
             data = json.loads(request.body)
             email = data.get('email')
             password = data.get('password')
+            
             if email and password:
                 # Authenticating user
                 user = User.objects.get(email=email,Password=password)
@@ -23,7 +24,7 @@ class LoginView(View):
                 else:
                     data = {"error": "Invalid email or password", "status_code": 401}
             else:
-                data = {"error": "Email and password are required", "status_code": 400}
+                data = {"error": "Email and password are required", "status_code": 400 }
         except json.JSONDecodeError:
             data = {"error": "Invalid JSON format", "status_code": 400}
         return JsonResponse(data,status=data["status_code"])
