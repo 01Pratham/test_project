@@ -78,7 +78,7 @@ function Insert() {
                 <div className="col-md-10 ml-5">
                   <div className="card card-primary">
                     <div className="card-header">
-                      <h3 className="card-title">Manage Users</h3>
+                      <h3 className="card-title">Manage .Users</h3>
                     </div>
                     <form id="quickForm" method="post">
                       <div className="card-body">
