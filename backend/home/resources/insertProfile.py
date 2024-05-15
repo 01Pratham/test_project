@@ -15,7 +15,6 @@ class insertProfile(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
-<<<<<<< HEAD
             vname = data['name']
             vempid = data['empid']
             vemail = data['email']
@@ -38,11 +37,9 @@ class insertProfile(View):
                 msg = "Updated"
                 
             data = {"status" : 200, "message" : "User "+msg+" Successfully"}
-=======
             validate = UserForm(data)
             if validate.is_valid():
                 vname = data['name']
-
                 vempid = data['empid']
                 vemail = data['email']
                 vdate = data['date']
@@ -66,7 +63,6 @@ class insertProfile(View):
                 data = {"status" : 200, "message" : "User "+msg+" Successfully"}
             else:
                 data = {"status" : 400, "message" : validate.errors}
->>>>>>> 61724fa28bd0206d391331fc7503ec914e748ee1
         except json.JSONDecodeError:
             data = {"status" : 400, "message" : "Error while Inserting User"}
         return JsonResponse(data)
