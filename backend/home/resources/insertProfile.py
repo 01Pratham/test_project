@@ -19,7 +19,7 @@ class insertProfile(View):
             vdate = data['date']
             vPassword = data['password']
             vcpassword = data['cpassword']
-            if data["action"] ==     "insert":
+            if data["action"] ==  "insert":
                 us = User(name=vname, empid=vempid, email=vemail, date=vdate,Password=vPassword,cpassword=vcpassword)
                 us.save()
                 msg = "Inserted"

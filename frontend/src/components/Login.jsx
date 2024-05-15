@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -13,7 +13,6 @@ const Login = () => {
 
   const [error, setErrors] = useState({});
   const [valid, setValid] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +42,6 @@ const Login = () => {
       }).then((res) => {
         try{
           if (res.data.is_valid) {
-            setLoggedIn(true);
             // Redirect to home page
             localStorage.setItem("Name", res.data.Name ?? "User");
             localStorage.setItem("isLoggedIn", true);

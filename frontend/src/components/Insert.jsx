@@ -18,7 +18,7 @@ function Insert() {
     }
 
     for (let [key, value] of formData.entries()) {
-      if (value != "") {
+      if (value !== "") {
         serializedFormData[key] = value;
       } else {
         alert("Please fill all the required info");
