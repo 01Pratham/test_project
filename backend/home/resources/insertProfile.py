@@ -21,22 +21,6 @@ class insertProfile(View):
             vdate = data['date']
             vPassword = data['password']
             vcpassword = data['cpassword']
-            if data["action"] ==  "insert":
-                us = User(name=vname, empid=vempid, email=vemail, date=vdate,Password=vPassword,cpassword=vcpassword)
-                us.save()
-                msg = "Inserted"
-            elif data["action"] ==   "update":
-                us = User.objects.get(id=data["id"])
-                us.name = vname
-                us.empid = vempid
-                us.email = vemail
-                us.date = vdate
-                us.Password = vPassword
-                us.cpassword = vcpassword
-                us.save()
-                msg = "Updated"
-                
-            data = {"status" : 200, "message" : "User "+msg+" Successfully"}
             validate = UserForm(data)
             if validate.is_valid():
                 vname = data['name']
@@ -45,10 +29,11 @@ class insertProfile(View):
                 vdate = data['date']
                 vPassword = data['password']
                 vcpassword = data['cpassword']
-                if data["action"] ==     "insert":
+                us = User.objects.filter(empid=data["empid"])
+                if data["action"] == "insert" and not us.exists():
                     us = User(name=vname, empid=vempid, email=vemail, date=vdate,Password=vPassword,cpassword=vcpassword)
                     us.save()
-                    msg = "Inserted"
+                    msg = f"User {data['action']}ed Successfully"
                 elif data["action"] ==   "update":
                     us = User.objects.get(id=data["id"])
                     us.name = vname
@@ -58,9 +43,11 @@ class insertProfile(View):
                     us.Password = vPassword
                     us.cpassword = vcpassword
                     us.save()
-                    msg = "Updated"
-                    
-                data = {"status" : 200, "message" : "User "+msg+" Successfully"}
+                    msg = f"User {data['action']}ed Successfully"
+                else:
+                    msg = "This user is already been registered"
+                
+                data = {"status" : 200, "message" : msg.title()}
             else:
                 data = {"status" : 400, "message" : validate.errors}
         except json.JSONDecodeError:
