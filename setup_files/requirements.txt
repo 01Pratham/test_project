@@ -1,3 +1,13 @@
 django
 django-cors-headers
 python-dotenv
+
+
+
+cmd:
+    backend:-
+        pip install python-dotenv
+        python manage.py runserver
+    frontend:- 
+        npm install
+        npm start
